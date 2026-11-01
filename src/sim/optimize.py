@@ -60,3 +60,21 @@ def replay_win(our_rate: float, y: float, competitor_rates: np.ndarray) -> bool:
     """과거 입찰 1건 재연: 내 환산 사정률을 끼워 넣었을 때 1순위인가(실제 y·실제 경쟁사 투찰 그대로)."""
     c = np.asarray(competitor_rates, dtype=float)
     return bool(our_rate >= y and not ((c >= y) & (c < our_rate)).any())
+
+
+def win_prob_curve_bootstrap(r_grid: np.ndarray, y_samples: np.ndarray, auctions_rates: list[np.ndarray]) -> np.ndarray:
+    """경쟁사를 독립 분포 대신 '과거 입찰의 경쟁사 투찰 묶음'으로 재표본해 P(낙찰|r) 을 계산한다.
+    입찰 안의 상관(같은 입찰 참가자들이 함께 높거나 낮게 쓰는 경향)과 참가자 수를 그대로 반영한다.
+    과거 입찰 a 와 실제 사정률 y 쌍마다, 내가 이기는 r 의 구간은 [y, y 이상인 첫 경쟁사 투찰) 이다."""
+    grid = np.asarray(r_grid, dtype=float)
+    y = np.asarray(y_samples, dtype=float)
+    acc = np.zeros(len(grid) + 1)
+    for c in auctions_rates:
+        c = np.sort(np.asarray(c, dtype=float))
+        k = np.searchsorted(c, y, side="left")                      # y 이상인 첫 경쟁사
+        nxt = np.where(k < len(c), c[np.minimum(k, len(c) - 1)], np.inf)
+        lo = np.searchsorted(grid, y, side="left")                   # r ≥ y 인 첫 격자
+        hi = np.searchsorted(grid, nxt, side="left")                 # r < nxt 인 마지막 격자 다음
+        np.add.at(acc, lo, 1.0)
+        np.add.at(acc, hi, -1.0)
+    return np.cumsum(acc)[:-1] / (len(y) * len(auctions_rates))
