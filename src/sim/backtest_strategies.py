@@ -11,7 +11,7 @@
   무작위 입찰자: 경쟁사 중 한 명이 될 확률의 기준선 1/(N+1)
 
 사용 예
-  uv run python src/sim/backtest_strategies.py --month 2026-10 --work servc
+  uv run python src/sim/backtest_strategies.py --months 2026-09,2026-10 --works servc,cnstwk
 """
 from __future__ import annotations
 
@@ -42,17 +42,20 @@ def y_history_before(month: str, parquet: Path = cg.OUT_DIR / "g2b_detail_all.pa
 
 
 def load_auctions(month: str, work: str, raw_dir: Path = cg.RAW_DIR) -> pd.DataFrame:
-    """입찰 1건 1행: 기초금액·실제 사정률·하한율·예가 범위·개찰일·경쟁사 환산 사정률 배열. 용역(A값 없음) 기준."""
+    """입찰 1건 1행: 기초금액·실제 사정률·하한율·A값·예가 범위·개찰일·경쟁사 환산 사정률 배열."""
     t = CB.targets(month, work)
     rows = [json.loads(l) for l in (raw_dir / f"compt_{month}.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    rows = [r for r in rows if r.get("_work", "servc") == work]
     c = pd.DataFrame(rows)
     c["bid_key"] = c[cg.KEY_COLS].astype(str).apply(lambda s: s.str.strip()).agg("|".join, axis=1)
     c["amt"] = pd.to_numeric(c["bidprcAmt"], errors="coerce")
     c = c[c["amt"] > 0]
-    m = c.merge(t[["bid_key", "base_amt", "yega_rate", "notice_lower", "range_cls", "open_dt"]], on="bid_key")
-    m["r"] = O.implied_rate(m["amt"], m["base_amt"], m["notice_lower"])
+    m = c.merge(t[["bid_key", "base_amt", "yega_rate", "notice_lower", "a_value", "range_cls", "open_dt"]], on="bid_key")
+    m["r"] = O.implied_rate(m["amt"], m["base_amt"], m["notice_lower"], m["a_value"])
     m["below"] = m["rmrk"].astype(str).str.contains("미달")
+    m["work"] = work
     a = m.groupby("bid_key").agg(base_amt=("base_amt", "first"), y=("yega_rate", "first"), ll=("notice_lower", "first"),
+                                 work=("work", "first"),
                                  range_cls=("range_cls", "first"), open_dt=("open_dt", "first"),
                                  n=("r", "size")).reset_index()
     a["rates"] = a["bid_key"].map(m.groupby("bid_key")["r"].apply(lambda s: s.to_numpy()))
@@ -132,14 +135,31 @@ def write_report(res: pd.DataFrame, meta: dict, consistency: float, path: Path) 
     return text
 
 
+def load_many(months: list[str], works: list[str]) -> pd.DataFrame:
+    frames, cons = [], []
+    for ym in months:
+        for w in works:
+            try:
+                a = load_auctions(ym, w)
+            except FileNotFoundError:
+                continue
+            frames.append(a)
+            cons.append((a.attrs["below_consistency"], len(a)))
+    out = pd.concat(frames, ignore_index=True).sort_values("open_dt").reset_index(drop=True)
+    out.attrs["below_consistency"] = sum(c * n for c, n in cons) / max(sum(n for _, n in cons), 1)
+    return out
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="투찰 전략 재연 백테스트")
-    ap.add_argument("--month", required=True)
-    ap.add_argument("--work", choices=["servc"], default="servc")
+    ap.add_argument("--months", required=True, help="개찰월 쉼표 나열 (예: 2026-09,2026-10)")
+    ap.add_argument("--works", default="servc,cnstwk", help="servc,cnstwk 중 쉼표 나열")
     args = ap.parse_args(argv)
-    auctions = load_auctions(args.month, args.work)
-    res, meta = evaluate(auctions, y_history=y_history_before(args.month))
-    path = OUT / f"sim_strategy_backtest_{args.month}.md"
+    months, works = sorted(args.months.split(",")), args.works.split(",")
+    auctions = load_many(months, works)
+    res, meta = evaluate(auctions, y_history=y_history_before(months[0]))
+    tag = months[0] if len(months) == 1 else f"{months[0]}_{months[-1]}"
+    path = OUT / f"sim_strategy_backtest_{tag}.md"
     print(write_report(res, meta, auctions.attrs["below_consistency"], path))
     print(f"리포트: {path}")
     return 0

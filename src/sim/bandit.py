@@ -10,7 +10,7 @@
 사후 최적 고정 팔(hindsight best)과의 차이가 후회(regret)다.
 
 사용 예
-  uv run python src/sim/bandit.py --month 2026-10
+  uv run python src/sim/bandit.py --months 2026-09,2026-10 --works servc,cnstwk
 """
 from __future__ import annotations
 
@@ -153,17 +153,20 @@ def summarize(auctions: pd.DataFrame, seeds: int = 20, arms: np.ndarray = ARMS) 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="밴딧 vs 전정보 온라인 학습")
-    ap.add_argument("--month", required=True)
+    ap.add_argument("--months", required=True, help="개찰월 쉼표 나열")
+    ap.add_argument("--works", default="servc,cnstwk")
     ap.add_argument("--seeds", type=int, default=20)
     args = ap.parse_args(argv)
-    auctions = B.load_auctions(args.month, "servc")
+    months = sorted(args.months.split(","))
+    auctions = B.load_many(months, args.works.split(","))
+    tag = months[0] if len(months) == 1 else f"{months[0]}_{months[-1]}"
     df = summarize(auctions, args.seeds)
     df["낙찰률"] = df["낙찰률"].map(lambda v: f"{v*100:.2f}%")
     df["후회(건)"] = df["후회(건)"].map(lambda v: f"{v:.1f}")
-    text = (f"# 온라인 학습: 밴딧 vs 전정보 ({args.month} 용역 {len(auctions)}건, 시간순, 시드 {args.seeds}개 평균)\n\n"
+    text = (f"# 온라인 학습: 밴딧 vs 전정보 ({', '.join(months)} {args.works} {len(auctions)}건, 시간순, 시드 {args.seeds}개 평균)\n\n"
             f"팔 = 환산 사정률 {ARMS[0]}~{ARMS[-1]}% ({len(ARMS)}개, 0.05 간격). 예가 범위별 학습기.\n\n"
             + df.to_markdown(index=False) + "\n")
-    path = ROOT / "out" / f"sim_bandit_{args.month}.md"
+    path = ROOT / "out" / f"sim_bandit_{tag}.md"
     path.write_text(text, encoding="utf-8")
     print(text)
     print(f"리포트: {path}")
