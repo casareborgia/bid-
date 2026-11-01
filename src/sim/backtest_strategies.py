@@ -6,6 +6,8 @@
 전략
   Q25/Q50/Q75 : 학습 구간 실제 사정률의 해당 분위수(예가 범위별) — 지금 예측 도구의 기준별 투찰가와 같은 논리
   MC 최적     : optimize.optimal_rate(y = 학습 구간 사정률, F = 학습 구간 경쟁사 환산 사정률, N = 그 입찰의 경쟁사 수)
+  MC 재표본   : 경쟁사를 독립 분포 대신 학습 구간 입찰(같은 예가 범위·같은 경쟁사 수 구간)의 투찰 묶음으로 재표본
+                (optimize.win_prob_curve_bootstrap — 입찰 안 상관과 경쟁사 수를 그대로 반영)
   무작위 입찰자: 경쟁사 중 한 명이 될 확률의 기준선 1/(N+1)
 
 사용 예
@@ -75,12 +77,25 @@ def evaluate(auctions: pd.DataFrame, y_samples_n: int = 4000, seed: int = 0,
     def mc_rate(rc: str, n: int) -> float:
         return O.optimal_rate(y_samp[rc], comp_train[rc], n, lo=98.0, hi=102.0, step=0.01)["rate"]
 
+    grid = np.round(np.arange(98.0, 102.0 + 1e-9, 0.01), 4)
+    train_b = train.assign(nb=pd.cut(train["n"], N_BUCKETS, right=False, labels=False))
+
+    @lru_cache(maxsize=None)
+    def boot_rate(rc: str, nb: int) -> float:
+        pool = train_b[(train_b["range_cls"] == rc) & (train_b["nb"] == nb)]["rates"].to_list()
+        if len(pool) < 5:                                                # 표본이 적으면 같은 예가 범위 전체
+            pool = train_b[train_b["range_cls"] == rc]["rates"].to_list()
+        p = O.win_prob_curve_bootstrap(grid, y_samp[rc], pool)
+        return float(grid[int(np.argmax(p))])
+
     recs = []
     for row in test.itertuples():
         if row.range_cls not in y_train:
             continue
         rates = {f"Q{q}": quant[row.range_cls][q] for q in (25, 50, 75)}
         rates["MC 최적"] = mc_rate(row.range_cls, int(row.n))
+        nb = int(pd.cut([row.n], N_BUCKETS, right=False, labels=False)[0])
+        rates["MC 재표본"] = boot_rate(row.range_cls, nb)
         rec = {"bid_key": row.bid_key, "range_cls": row.range_cls, "n": int(row.n), "random": 1.0 / (row.n + 1)}
         for k, r in rates.items():
             rec[k] = O.replay_win(r, row.y, row.rates)
@@ -95,16 +110,18 @@ def evaluate(auctions: pd.DataFrame, y_samples_n: int = 4000, seed: int = 0,
 
 
 def write_report(res: pd.DataFrame, meta: dict, consistency: float, path: Path) -> str:
-    strat = ["Q25", "Q50", "Q75", "MC 최적"]
+    strat = ["Q25", "Q50", "Q75", "MC 최적", "MC 재표본"]
     def table(df: pd.DataFrame) -> str:
         row = {"n": len(df), "무작위 기준 1/(N+1)": f"{df['random'].mean()*100:.2f}%"}
         for s in strat:
-            row[s] = f"{df[s].mean()*100:.2f}% (유효 {df[s + '_valid'].mean()*100:.0f}%)"
+            p = df[s].mean()
+            ci = 1.96 * np.sqrt(p * (1 - p) / max(len(df), 1))              # 95% 신뢰구간 반폭(정규 근사)
+            row[s] = f"{p*100:.1f}±{ci*100:.1f}% (유효 {df[s + '_valid'].mean()*100:.0f}%)"
         return row
     lines = ["# 투찰 전략 재연 백테스트", "",
              f"- 학습(앞 절반) {meta['n_train']}건 → 평가(뒤 절반) {meta['n_test']}건. 실제 사정률 분포: {meta['y_source']}. 실제 사정률·실제 경쟁사 투찰을 그대로 두고 내 투찰을 끼워 넣어 1순위 여부를 센다.",
              f"- 데이터 점검: '낙찰하한선 미달' 표기와 환산 사정률 판정 일치율 {consistency*100:.2f}%",
-             "- 셀 값: 낙찰률(1순위 비율), 괄호는 하한 통과율.", ""]
+             "- 셀 값: 낙찰률(1순위 비율) ± 95% 신뢰구간 반폭, 괄호는 하한 통과율. 신뢰구간이 겹치면 차이를 단정할 수 없다.", ""]
     rows = [{"구분": "전체", **table(res)}]
     rows += [{"구분": f"예가 {k}", **table(g)} for k, g in res.groupby("range_cls")]
     rows += [{"구분": f"경쟁사 {k}", **table(g)} for k, g in res.groupby("n_bucket", observed=True)]

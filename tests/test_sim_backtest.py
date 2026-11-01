@@ -23,7 +23,7 @@ def test_evaluate_strategies_and_report(tmp_path):
     hist = {"±2": np.random.default_rng(1).normal(99.99, 0.51, 5000), "±3": np.random.default_rng(2).normal(99.86, 0.74, 5000)}
     res, meta = B.evaluate(a, y_samples_n=1000, y_history=hist)
     assert meta["n_train"] == 60 and meta["n_test"] == 60 and meta["y_source"] == "과거 시장 데이터"
-    for s in ("Q25", "Q50", "Q75", "MC 최적"):
+    for s in ("Q25", "Q50", "Q75", "MC 최적", "MC 재표본"):
         assert res[s].dtype == bool and res[f"{s}_valid"].dtype == bool
     # 통과율은 분위수 순서를 따른다
     assert res["Q25_valid"].mean() <= res["Q50_valid"].mean() <= res["Q75_valid"].mean()

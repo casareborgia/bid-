@@ -50,3 +50,14 @@ def test_replay_win():
     assert O.replay_win(100.2, 100.0, np.array([99.9, 100.3]))          # 99.9 는 미달, 100.3 은 나보다 높음
     assert not O.replay_win(100.2, 100.0, np.array([100.1]))            # 100.1 이 [y, r) 에 있음 → 짐
     assert not O.replay_win(99.9, 100.0, np.array([]))                  # 하한 미달
+
+
+def test_bootstrap_curve_matches_brute_force():
+    rng = np.random.default_rng(7)
+    auctions = [rng.normal(100.1 + rng.normal(0, 0.3), 0.5, int(rng.integers(3, 15))) for _ in range(30)]
+    y = rng.normal(99.9, 0.6, 3000)
+    grid = np.array([99.3, 99.9, 100.4])
+    p = O.win_prob_curve_bootstrap(grid, y, auctions)
+    for r, pb in zip(grid, p):
+        brute = np.mean([[O.replay_win(r, yy, c) for yy in y[:400]] for c in auctions])
+        assert pb == pytest.approx(brute, abs=0.03)
