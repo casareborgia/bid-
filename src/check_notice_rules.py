@@ -32,7 +32,8 @@ OPS = {(1, "notice"): BN.NOTICE_OP[1], (2, "notice"): BN.NOTICE_OP[2],
        (1, "bsis"): BN.BSIS_OP[1], (2, "bsis"): BN.BSIS_OP[2]}
 KEEP = ["bidNtceNo", "bidNtceOrd", "bidNtceNm", "bidNtceDt", "dminsttNm", "ntceInsttNm", "presmptPrce", "sucsfbidLwltRate",
         "sucsfbidMthdNm", "sucsfbidMthdAppStd", "cntrctCnclsMthdNm", "prearngPrceDcsnMthdNm", "srvceDivNm",
-        "bssamt", "rsrvtnPrceRngBgnRate", "rsrvtnPrceRngEndRate", "bidClsfcNo"]
+        "bssamt", "rsrvtnPrceRngBgnRate", "rsrvtnPrceRngEndRate", "bidClsfcNo", "bidPrceCalclAYn", "qltyMngcstAObjYn",
+        *BN.A_ITEMS]                                                   # A값 항목(공사 하한 계산용, 시뮬레이터)
 
 
 def method_category(name: str | None) -> str:
@@ -85,13 +86,19 @@ def build_table(raw: dict[tuple[int, str], list[dict]]) -> pd.DataFrame:
         if not b.empty:
             b = b.drop_duplicates(["bidNtceNo", "bidNtceOrd", "bssamt"])
             b = b[~b.duplicated(["bidNtceNo", "bidNtceOrd"], keep=False)]    # 분류별 기초금액이 여러 개면 제외
-            n = n.merge(b[["bidNtceNo", "bidNtceOrd", "bssamt", "rsrvtnPrceRngBgnRate", "rsrvtnPrceRngEndRate"]],
+            a_cols = [c for c in ("bidPrceCalclAYn", "qltyMngcstAObjYn", *BN.A_ITEMS) if c in b.columns]
+            n = n.merge(b[["bidNtceNo", "bidNtceOrd", "bssamt", "rsrvtnPrceRngBgnRate", "rsrvtnPrceRngEndRate", *a_cols]],
                         on=["bidNtceNo", "bidNtceOrd"], how="left")
         frames.append(n.assign(work_type=wt))
     df = pd.concat(frames, ignore_index=True)
     df["agency"] = df["dminsttNm"].fillna("").where(df["dminsttNm"].fillna("") != "", df["ntceInsttNm"])
     df["est_price"] = pd.to_numeric(df["presmptPrce"], errors="coerce")
     df["notice_lower"] = pd.to_numeric(df["sucsfbidLwltRate"], errors="coerce")
+    # A값: 공사만, 기초금액 조회 행에 항목이 있을 때 (없으면 NaN — 캐시가 A값 필드 추가 전이면 다시 받는다)
+    a_src = df.reindex(columns=["bidPrceCalclAYn", "qltyMngcstAObjYn", *BN.A_ITEMS])
+    has_a = a_src[list(BN.A_ITEMS)].notna().any(axis=1)
+    df["a_value"] = [BN.a_value_from({k: v for k, v in r.items() if pd.notna(v)})[0] if (wt == 1 and h) else (0.0 if wt == 2 else float("nan"))
+                     for r, wt, h in zip(a_src.to_dict("records"), df["work_type"], has_a)]
     df["notice_date"] = df["bidNtceDt"].astype(str).str[:10]
     df["method"] = df["sucsfbidMthdNm"].map(method_category)
     df["servc_kind"] = df["srvceDivNm"].map(BN.SERVC_KIND) if "srvceDivNm" in df else None

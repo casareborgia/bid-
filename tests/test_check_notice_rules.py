@@ -83,3 +83,13 @@ def test_fetch_month_pages_and_drops_personal_fields(tmp_path):
     text = "".join(f.read_text() for f in tmp_path.glob("*.jsonl"))
     assert "홍길동" not in text and "02-0000" not in text
     assert len(raw[(1, "notice")]) == 2
+
+
+def test_a_value_column_for_construction():
+    raw = {k: [dict(r) for r in v] for k, v in RAW.items()}
+    raw[(1, "bsis")][0].update({"npnInsrprm": "1000", "sftyMngcst": "500", "qltyMngcst": "300", "qltyMngcstAObjYn": "N",
+                                "bidPrceCalclAYn": "Y"})
+    df = C.build_table(raw).set_index("bidNtceNo")
+    assert df.loc["C1", "a_value"] == 1500                                    # 품질관리비는 A 대상 아님(N)
+    assert pd.isna(df.loc["C2", "a_value"])                                   # A값 항목이 없는 공사 → 미확인
+    assert df.loc["S1", "a_value"] == 0                                       # 용역은 0

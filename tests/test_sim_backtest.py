@@ -37,3 +37,29 @@ def test_anonymize_drops_names_and_hashes_bizno():
     row = CB.anonymize(item)
     assert "prcbdrNm" not in row and "prcbdrCeoNm" not in row and "prcbdrBizno" not in row
     assert row["bidder"] == CB.anonymize(dict(item))["bidder"] and len(row["bidder"]) == 12 and row["bidder"] != "1234567890"
+
+
+def test_targets_use_previous_month_notices_and_require_a_value(tmp_path, monkeypatch):
+    import check_notice_rules as C
+    RNG = {"rsrvtnPrceRngBgnRate": "-3", "rsrvtnPrceRngEndRate": "+3"}
+    def notice(no, wt_lower="89.745"):
+        return {"bidNtceNo": no, "bidNtceOrd": "000", "bidNtceDt": "2026-09-20 10:00:00", "dminsttNm": "서울특별시",
+                "ntceInsttNm": "서울특별시", "presmptPrce": "100000000", "sucsfbidLwltRate": wt_lower, "sucsfbidMthdNm": "적격심사제"}
+    caches = {"2026-09": {(1, "notice"): [notice("C9"), notice("CX")],
+                          (1, "bsis"): [{"bidNtceNo": "C9", "bidNtceOrd": "000", "bssamt": "110000000", "npnInsrprm": "700", **RNG,
+                                         "bidPrceCalclAYn": "Y"},
+                                        {"bidNtceNo": "CX", "bidNtceOrd": "000", "bssamt": "110000000", **RNG}]},   # A값 항목 없음
+              "2026-10": {(1, "notice"): [notice("C10")],
+                          (1, "bsis"): [{"bidNtceNo": "C10", "bidNtceOrd": "000", "bssamt": "1", "npnInsrprm": "0", **RNG}]}}
+    def fake_fetch(ym, fetch=False, **kw):
+        if ym not in caches:
+            raise FileNotFoundError(ym)
+        return caches[ym]
+    monkeypatch.setattr(C, "fetch_month", fake_fetch)
+    pq = tmp_path / "g.parquet"
+    pd.DataFrame([{"bid_key": f"{n}|000|0|000", "bidNtceNo": n, "ym": "2026-10", "work_type": 1, "range_cls": "±3",
+                   "base_amt": 1.1e8, "yega_rate": 100.0, "open_dt": pd.Timestamp("2026-10-05")} for n in ("C9", "CX", "C10")]
+                 ).to_parquet(pq, index=False)
+    t = CB.targets("2026-10", "cnstwk", parquet=pq).set_index("bidNtceNo")
+    assert set(t.index) == {"C9", "C10"}                                      # 9월 공고·10월 개찰 포함, A값 미확인 공사 제외
+    assert t.loc["C9", "a_value"] == 700 and t.loc["C9", "notice_lower"] == 89.745
