@@ -1,0 +1,30 @@
+# 민감정보
+.env
+
+# 원본 데이터·산출물 (용량/보안)
+data/raw/
+*.parquet
+data/*.csv
+models/*.joblib
+out/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# 제3자 문서(재배포 조건 불분명 — 공공데이터포털에서 직접 받는다)
+docs/*.docx
+docs/*.hwp
+docs/*.pdf
+
+# 사내 정보가 섞인 내부 문서(로컬 전용, 2026-11-01 공개 전환 시 제외)
+CLAUDE.md
+작업계획.md
+docs/hf_model_card.md
+docs/specs/

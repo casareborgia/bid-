@@ -1,0 +1,10 @@
+공공기관 규정 검색 결과 (총 1건, 1페이지):
+
+[2200000160749] (한국남동발전주식회사) 계약규정
+  기관: 한국남동발전(주)
+  공포일: 20260909
+  시행일: 20260909
+  링크: /DRF/lawService.do?OC=***&amp;target=pi&amp;ID=2200000160749&amp;type=HTML&amp;mobileYn=
+
+
+전문 조회: get_public_institution_rule_text(id="일련번호")

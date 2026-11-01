@@ -1,0 +1,993 @@
+{
+  "version": "2026-11-01+2026-11-01-notice-check",
+  "description": "적격심사 낙찰하한율(%) 규칙표. 공종(1=공사, 2=용역)·추정가격(원) 구간·기준일(입찰공고일)별. 수행능력 만점 전제 통상값이며 별표 산식에서 나오는 값이라 규정 본문에 숫자로 없다. 공사 하한율은 조달청 2026-01-30 공고분·지자체 2025-07-01부터 2%p 상향(사용자 확인 2026-11-01). A값(사후정산 항목)이 있는 공고는 실질 하한가가 (예정가격-A)×하한율+A 이므로 공고문을 확인한다. 용역 하한율은 조달청 일반·기술용역 기준 2026-05-26 공고분부터 2%p 상향, 용역 행은 servc_kind(general=일반, tech=기술)로 나뉘며 생략 시 그 구간의 두 종류 중 높은 하한율을 쓴다. 지자체 용역은 2025-05-01 상향, 2억 경계로 구간이 조달청과 다르다. 남동발전 100억 이상 공사는 종합심사낙찰제라 행이 없다(기본값 사용).",
+  "default_lower_limit_pct": 87.745,
+  "default_note": "수행능력 만점 전제의 통상 적격심사 낙찰하한율(87.745%). 공고문 적격심사세부기준 별표의 배점한도·가격산식에 따라 달라질 수 있으므로 공고문에 명시된 하한율이 다르면 --lower_limit 으로 직접 지정한다.",
+  "rules": [
+    {
+      "id": "koen_cnstwk_under_1b",
+      "name": "한국남동발전 공사 (추정가격 10억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 0,
+      "est_price_max": 1000000000,
+      "valid_from": "2026-01-30",
+      "valid_to": null,
+      "lower_limit_pct": 89.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 준용",
+        "serial": "2100000268978",
+        "ef_date": "2026-01-30",
+        "note": "2025-12-01 제9269호 개정, 2026-01-30 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값으로 본문에 없음 — 사용자 확인(2026-11-01)",
+        "article": "별표 2-나·3·4·5 (10억 미만)"
+      }
+    },
+    {
+      "id": "koen_cnstwk_1b_5b",
+      "name": "한국남동발전 공사 (추정가격 10억~50억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 1000000000,
+      "est_price_max": 5000000000,
+      "valid_from": "2026-01-30",
+      "valid_to": null,
+      "lower_limit_pct": 88.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 준용",
+        "serial": "2100000268978",
+        "ef_date": "2026-01-30",
+        "note": "2025-12-01 제9269호 개정, 2026-01-30 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값으로 본문에 없음 — 사용자 확인(2026-11-01)",
+        "article": "별표 2 (50억 미만 10억 이상)"
+      }
+    },
+    {
+      "id": "koen_cnstwk_5b_10b",
+      "name": "한국남동발전 공사 (추정가격 50억~100억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 5000000000,
+      "est_price_max": 10000000000,
+      "valid_from": "2026-01-30",
+      "valid_to": null,
+      "lower_limit_pct": 87.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 준용",
+        "serial": "2100000268978",
+        "ef_date": "2026-01-30",
+        "note": "2025-12-01 제9269호 개정, 2026-01-30 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값으로 본문에 없음 — 사용자 확인(2026-11-01)",
+        "article": "별표 1 (100억 미만 50억 이상)"
+      }
+    },
+    {
+      "id": "koen_cnstwk_under_1b_pre2026",
+      "name": "한국남동발전 공사 (추정가격 10억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 0,
+      "est_price_max": 1000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-01-29",
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 (2%p 상향 전) 준용",
+        "note": "2026-01-29 이전 입찰공고분 — 사용자 확인(2026-11-01)",
+        "article": "별표 2-나·3·4·5 (10억 미만)"
+      }
+    },
+    {
+      "id": "koen_cnstwk_1b_5b_pre2026",
+      "name": "한국남동발전 공사 (추정가격 10억~50억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 1000000000,
+      "est_price_max": 5000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-01-29",
+      "lower_limit_pct": 86.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 (2%p 상향 전) 준용",
+        "note": "2026-01-29 이전 입찰공고분 — 사용자 확인(2026-11-01)",
+        "article": "별표 2 (50억 미만 10억 이상)"
+      }
+    },
+    {
+      "id": "koen_cnstwk_5b_10b_pre2026",
+      "name": "한국남동발전 공사 (추정가격 50억~100억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 5000000000,
+      "est_price_max": 10000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-01-29",
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 시설공사 적격심사세부기준 (2%p 상향 전) 준용",
+        "note": "2026-01-29 이전 입찰공고분 — 사용자 확인(2026-11-01)",
+        "article": "별표 1 (100억 미만 50억 이상)"
+      }
+    },
+    {
+      "id": "koen_servc_general_0eok",
+      "name": "한국남동발전 일반용역 (추정가격 1억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 0,
+      "est_price_max": 100000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 89.995,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용",
+        "serial": "2100000279658",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제2026-260호 개정, 2026-05-26 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 1억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_0eok_pre202605",
+      "name": "한국남동발전 일반용역 (추정가격 1억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 0,
+      "est_price_max": 100000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 87.995,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용 (2%p 상향 전)",
+        "note": "2026-05-25 이전 입찰공고분 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 1억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_1eok",
+      "name": "한국남동발전 일반용역 (추정가격 1억~5억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 100000000,
+      "est_price_max": 500000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 87.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용",
+        "serial": "2100000279658",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제2026-260호 개정, 2026-05-26 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 1억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_1eok_pre202605",
+      "name": "한국남동발전 일반용역 (추정가격 1억~5억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 100000000,
+      "est_price_max": 500000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용 (2%p 상향 전)",
+        "note": "2026-05-25 이전 입찰공고분 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 1억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_5eok",
+      "name": "한국남동발전 일반용역 (추정가격 5억~10억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 84.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용",
+        "serial": "2100000279658",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제2026-260호 개정, 2026-05-26 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_5eok_pre202605",
+      "name": "한국남동발전 일반용역 (추정가격 5억~10억 미만)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 82.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용 (2%p 상향 전)",
+        "note": "2026-05-25 이전 입찰공고분 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_10eok",
+      "name": "한국남동발전 일반용역 (추정가격 10억 이상)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 82.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용",
+        "serial": "2100000279658",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제2026-260호 개정, 2026-05-26 입찰공고분부터 전 구간 2%p 상향. 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "koen_servc_general_10eok_pre202605",
+      "name": "한국남동발전 일반용역 (추정가격 10억 이상)",
+      "status": "unverified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 80.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 일반용역 적격심사 세부기준 준용 (2%p 상향 전)",
+        "note": "2026-05-25 이전 입찰공고분 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 조달청 일반용역 공고 하한율이 별표(청소·경비·수리점검·폐기물·운송 등)별로 89.995/82.495/86.245 혼재해 구간 규칙으로 맞출 수 없음. 공고값(--bid_no) 또는 --lower_limit 사용",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_0eok",
+      "name": "한국남동발전 기술용역 (추정가격 2억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 0,
+      "est_price_max": 200000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 89.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제5283호 개정, 2026-05-26 입찰공고분부터 2%p 상향. 구간 경계는 2억/5억/10억 — 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 조달청 기술용역 적격심사 공고 47/53건 일치(2026-11-01 사용자 승인으로 수정)",
+        "article": "추정가격 2억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_0eok_pre202605",
+      "name": "한국남동발전 기술용역 (추정가격 2억 미만, 2026-05-25 이전)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 0,
+      "est_price_max": 200000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "상향 전 값(각 −2%p). 지자체 기술용역 현행값(87.745/86.745/85.495/79.995)과 같다 — 2026-10 공고 실측으로 간접 확인",
+        "article": "추정가격 2억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_2eok",
+      "name": "한국남동발전 기술용역 (추정가격 2억~5억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 200000000,
+      "est_price_max": 500000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 88.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제5283호 개정, 2026-05-26 입찰공고분부터 2%p 상향. 구간 경계는 2억/5억/10억 — 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 조달청 기술용역 적격심사 공고 16/21건 일치(2026-11-01 사용자 승인으로 수정)",
+        "article": "추정가격 2억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_2eok_pre202605",
+      "name": "한국남동발전 기술용역 (추정가격 2억~5억 미만, 2026-05-25 이전)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 200000000,
+      "est_price_max": 500000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 86.745,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "상향 전 값(각 −2%p). 지자체 기술용역 현행값(87.745/86.745/85.495/79.995)과 같다 — 2026-10 공고 실측으로 간접 확인",
+        "article": "추정가격 2억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_5eok",
+      "name": "한국남동발전 기술용역 (추정가격 5억~10억 미만)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 87.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제5283호 개정, 2026-05-26 입찰공고분부터 2%p 상향. 구간 경계는 2억/5억/10억 — 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 조달청 기술용역 적격심사 공고 19/19건 일치(2026-11-01 사용자 승인으로 수정)",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_5eok_pre202605",
+      "name": "한국남동발전 기술용역 (추정가격 5억~10억 미만, 2026-05-25 이전)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "상향 전 값(각 −2%p). 지자체 기술용역 현행값(87.745/86.745/85.495/79.995)과 같다 — 2026-10 공고 실측으로 간접 확인",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_10eok",
+      "name": "한국남동발전 기술용역 (추정가격 10억 이상)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2026-05-26",
+      "valid_to": null,
+      "lower_limit_pct": 81.995,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "2026-05-22 제5283호 개정, 2026-05-26 입찰공고분부터 2%p 상향. 구간 경계는 2억/5억/10억 — 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 조달청 기술용역 적격심사 공고 24/24건 일치(2026-11-01 사용자 승인으로 수정)",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "koen_servc_tech_10eok_pre202605",
+      "name": "한국남동발전 기술용역 (추정가격 10억 이상, 2026-05-25 이전)",
+      "status": "verified",
+      "scope": {
+        "include_keywords": [
+          "한국남동발전"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2019-01-01",
+      "valid_to": "2026-05-25",
+      "lower_limit_pct": 79.995,
+      "basis": {
+        "rule": "한국남동발전 — 조달청 기술용역 적격심사 세부기준 준용",
+        "serial": "2100000279692",
+        "ef_date": "2026-05-26",
+        "note": "상향 전 값(각 −2%p). 지자체 기술용역 현행값(87.745/86.745/85.495/79.995)과 같다 — 2026-10 공고 실측으로 간접 확인",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_under_1b",
+      "name": "지방자치단체·교육청 공사 (추정가격 10억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 0,
+      "est_price_max": 1000000000,
+      "valid_from": "2025-07-01",
+      "valid_to": null,
+      "lower_limit_pct": 89.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규)",
+        "serial": "2100000281396",
+        "ef_date": "2025-07-01",
+        "note": "2025-07-01 2%p 상향 선행 시행(조달청과 같은 하한율, 100억~300억 81.995%). 수치는 별표 산식값 — 사용자 확인(2026-11-01)",
+        "article": "시설공사 적격심사 세부기준 별표 (10억 미만)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_1b_5b",
+      "name": "지방자치단체·교육청 공사 (추정가격 10억~50억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 1000000000,
+      "est_price_max": 5000000000,
+      "valid_from": "2025-07-01",
+      "valid_to": null,
+      "lower_limit_pct": 88.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규)",
+        "serial": "2100000281396",
+        "ef_date": "2025-07-01",
+        "note": "2025-07-01 2%p 상향 선행 시행(조달청과 같은 하한율, 100억~300억 81.995%). 수치는 별표 산식값 — 사용자 확인(2026-11-01)",
+        "article": "시설공사 적격심사 세부기준 별표 (50억 미만 10억 이상)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_5b_10b",
+      "name": "지방자치단체·교육청 공사 (추정가격 50억~100억 미만)",
+      "status": "unverified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 5000000000,
+      "est_price_max": 10000000000,
+      "valid_from": "2025-07-01",
+      "valid_to": null,
+      "lower_limit_pct": 87.495,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규)",
+        "serial": "2100000281396",
+        "ef_date": "2025-07-01",
+        "note": "2025-07-01 2%p 상향 선행 시행(조달청과 같은 하한율, 50억~100억 87.495%, 100억~300억 81.995% — 지자체도 조달청과 동일, 사용자 확인 2026-11-01). 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 규칙값 일치 41/57 (나머지 87.995). 공고값 또는 --lower_limit 사용",
+        "article": "시설공사 적격심사 세부기준 별표 (100억 미만 50억 이상)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_10b_30b",
+      "name": "지방자치단체·교육청 공사 (추정가격 100억~300억 미만)",
+      "status": "unverified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 10000000000,
+      "est_price_max": 30000000000,
+      "valid_from": "2025-07-01",
+      "valid_to": null,
+      "lower_limit_pct": 81.995,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규)",
+        "serial": "2100000281396",
+        "ef_date": "2025-07-01",
+        "note": "2025-07-01 2%p 상향 선행 시행(조달청과 같은 하한율, 100억~300억 81.995%). 수치는 별표 산식값 — 사용자 확인(2026-11-01) — 판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 규칙값 일치 16/29 (83.395·84.245·84.795 등). 공고값 또는 --lower_limit 사용",
+        "article": "시설공사 적격심사 세부기준 별표 (300억 미만 100억 이상)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_under_1b_pre2025",
+      "name": "지방자치단체·교육청 공사 (추정가격 10억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 0,
+      "est_price_max": 1000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2025-06-30",
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규, 2%p 상향 전)",
+        "note": "2025-06-30 이전 — 사용자 확인(2026-11-01)",
+        "article": "시설공사 적격심사 세부기준 별표 (10억 미만)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_1b_5b_pre2025",
+      "name": "지방자치단체·교육청 공사 (추정가격 10억~50억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 1000000000,
+      "est_price_max": 5000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2025-06-30",
+      "lower_limit_pct": 86.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규, 2%p 상향 전)",
+        "note": "2025-06-30 이전 — 사용자 확인(2026-11-01)",
+        "article": "시설공사 적격심사 세부기준 별표 (50억 미만 10억 이상)"
+      }
+    },
+    {
+      "id": "local_gov_cnstwk_5b_10b_pre2025",
+      "name": "지방자치단체·교육청 공사 (추정가격 50억~100억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        1
+      ],
+      "est_price_min": 5000000000,
+      "est_price_max": 10000000000,
+      "valid_from": "2019-01-01",
+      "valid_to": "2025-06-30",
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규, 2%p 상향 전)",
+        "note": "2025-06-30 이전 — 사용자 확인(2026-11-01)",
+        "article": "시설공사 적격심사 세부기준 별표 (100억 미만 50억 이상)"
+      }
+    },
+    {
+      "id": "local_gov_servc_tech_0eok",
+      "name": "지방자치단체·교육청 기술용역(설계·감리·엔지니어링 등) (추정가격 2억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 0,
+      "est_price_max": 200000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 200/238 (나머지 86.745)건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 2억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_tech_2eok",
+      "name": "지방자치단체·교육청 기술용역(설계·감리·엔지니어링 등) (추정가격 2억~5억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 200000000,
+      "est_price_max": 500000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 86.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 118/118건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 2억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_tech_5eok",
+      "name": "지방자치단체·교육청 기술용역(설계·감리·엔지니어링 등) (추정가격 5억~10억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 60/60건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_tech_10eok",
+      "name": "지방자치단체·교육청 기술용역(설계·감리·엔지니어링 등) (추정가격 10억 이상)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "tech",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 79.995,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 235/235건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_general_0eok",
+      "name": "지방자치단체·교육청 일반용역 (추정가격 2억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 0,
+      "est_price_max": 200000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 161/177건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 2억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_general_2eok",
+      "name": "지방자치단체·교육청 일반용역 (추정가격 2억~5억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 200000000,
+      "est_price_max": 500000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 86.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 102/133 (87.745 27)건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 2억~5억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_general_5eok",
+      "name": "지방자치단체·교육청 일반용역 (추정가격 5억~10억 미만)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 500000000,
+      "est_price_max": 1000000000,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 85.495,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py): 지자체·교육청 적격심사 공고 41/47건. 사용자 제시값(2025-05-01 상향: 89.995/89.745 등)과 달리 실제 공고는 조달청 상향 전 값과 같아 실측값으로 수정(2026-11-01 사용자 승인). 시행 시작일(2025-05-01)은 미확인",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 5억~10억 미만 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_general_10eok",
+      "name": "지방자치단체·교육청 일반용역 (추정가격 10억 이상)",
+      "status": "unverified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "servc_kind": "general",
+      "est_price_min": 1000000000,
+      "est_price_max": null,
+      "valid_from": "2025-05-01",
+      "valid_to": null,
+      "lower_limit_pct": 82.495,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규) 제3장 용역적격심사 세부기준",
+        "serial": "2100000281396",
+        "note": "판정 불가(2026-11-01): 2026-10 입찰공고 실측(out/notice_rules_check_2026-10.md, check_notice_rules.py)에서 77.995·82.995·72.995 혼재(건설폐기물·관리규정외 등 기준별 차이). 공고값 또는 --lower_limit 사용",
+        "ef_date": "2025-05-01",
+        "article": "추정가격 10억 이상 구간"
+      }
+    },
+    {
+      "id": "local_gov_servc_pre202505",
+      "name": "지방자치단체·교육청 용역 (2025-05-01 상향 전)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_or_edu",
+        "regime_rule_ids": [
+          "edu_k12",
+          "local_gov"
+        ]
+      },
+      "work_type": [
+        2
+      ],
+      "est_price_min": 0,
+      "est_price_max": null,
+      "valid_from": "2019-01-01",
+      "valid_to": "2025-04-30",
+      "lower_limit_pct": 87.745,
+      "basis": {
+        "rule": "지방자치단체 입찰시 낙찰자 결정기준 (행정안전부 예규)",
+        "serial": "2100000281396",
+        "note": "상향 전 단일값, 원문 미확인",
+        "article": "기술·학술연구·일반용역 적격심사 세부기준 별표 (통상 낙찰하한율 87.745%, 수행능력 만점 전제)"
+      }
+    }
+  ]
+}

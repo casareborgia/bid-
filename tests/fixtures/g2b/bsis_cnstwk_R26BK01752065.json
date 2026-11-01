@@ -1,0 +1,49 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "정상"
+  },
+  "body": {
+   "items": [
+    {
+     "bidNtceNo": "R26BK01752065",
+     "bidNtceOrd": "000",
+     "bidClsfcNo": "0",
+     "bidNtceNm": "마곡나루역 펀스테이션 전기공사",
+     "bssamt": "184521490",
+     "bssamtOpenDt": "2026-10-01 07:33:09",
+     "rsrvtnPrceRngBgnRate": "-3",
+     "rsrvtnPrceRngEndRate": "+3",
+     "evlBssAmt": "0",
+     "dfcltydgrCfcnt": "",
+     "etcGnrlexpnsBssRate": "",
+     "gnrlMngcstBssRate": "",
+     "prftBssRate": "",
+     "lbrcstBssRate": "",
+     "sftyMngcst": "3298695",
+     "sftyChckMngcst": "0",
+     "rtrfundNon": "1734961",
+     "envCnsrvcst": "0",
+     "scontrctPayprcePayGrntyFee": "0",
+     "mrfnHealthInsrprm": "2711820",
+     "npnInsrprm": "3583072",
+     "rmrk1": "",
+     "rmrk2": "",
+     "odsnLngtrmrcprInsrprm": "356333",
+     "usefulAmt": "0",
+     "inptDt": "2026-10-01 07:33:09",
+     "bidPrceCalclAYn": "Y",
+     "bssAmtPurcnstcst": "145398641",
+     "qltyMngcst": "0",
+     "qltyMngcstAObjYn": "Y",
+     "smkpAmt": "",
+     "smkpAmtYn": "N"
+    }
+   ],
+   "numOfRows": 10,
+   "pageNo": 1,
+   "totalCount": 1
+  }
+ }
+}

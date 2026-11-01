@@ -1,0 +1,43 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "정상"
+  },
+  "body": {
+   "items": [
+    {
+     "bidNtceNo": "R26BK01749660",
+     "bidNtceOrd": "000",
+     "bidClsfcNo": "0",
+     "bidNtceNm": "2026년 상왕1교 정밀안전진단 및 내진성능평가용역",
+     "bssamt": "68420000",
+     "bssamtOpenDt": "2026-10-01 07:06:41",
+     "rsrvtnPrceRngBgnRate": "-3",
+     "rsrvtnPrceRngEndRate": "+3",
+     "evlBssAmt": "0",
+     "dfcltydgrCfcnt": "",
+     "etcGnrlexpnsBssRate": "",
+     "gnrlMngcstBssRate": "",
+     "prftBssRate": "",
+     "lbrcstBssRate": "",
+     "sftyMngcst": "0",
+     "sftyChckMngcst": "0",
+     "rtrfundNon": "0",
+     "envCnsrvcst": "0",
+     "scontrctPayprcePayGrntyFee": "0",
+     "mrfnHealthInsrprm": "0",
+     "npnInsrprm": "0",
+     "rmrk1": "",
+     "rmrk2": "",
+     "odsnLngtrmrcprInsrprm": "0",
+     "usefulAmt": "0",
+     "inptDt": "2026-10-01 07:06:41"
+    }
+   ],
+   "numOfRows": 10,
+   "pageNo": 1,
+   "totalCount": 1
+  }
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "정상"
+  },
+  "body": {
+   "items": [
+    {
+     "bidNtceNo": "R26BK01752065",
+     "bidNtceOrd": "000",
+     "bidClsfcNo": "0",
+     "rbidNo": "000",
+     "bidNtceNm": "마곡나루역 펀스테이션 전기공사",
+     "opengDt": "2026-10-13 13:00:00",
+     "prtcptCnum": "1601",
+     "opengCorpInfo": "주식회사 타빅스^1108173342^***^167052282^90.394",
+     "progrsDivCdNm": "개찰완료",
+     "inptDt": "2026-10-13 13:21:09",
+     "rsrvtnPrceFileExistnceYn": "Y",
+     "ntceInsttCd": "6110000",
+     "ntceInsttNm": "서울특별시",
+     "dminsttCd": "6110000",
+     "dminsttNm": "서울특별시",
+     "opengRsltNtcCntnts": ""
+    }
+   ],
+   "numOfRows": 999,
+   "pageNo": 1,
+   "totalCount": 1
+  }
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "정상"
+  },
+  "body": {
+   "items": [
+    {
+     "bidNtceNo": "R26BK01752065",
+     "bidNtceOrd": "000",
+     "sftyMngcst": "3298695",
+     "sftyChckMngcst": "0",
+     "rtrfundNon": "1734961",
+     "mrfnHealthInsrprm": "2711820",
+     "npnInsrprm": "3583072",
+     "odsnLngtrmrcprInsrprm": "356333",
+     "qltyMngcst": "0",
+     "qltyMngcstAObjYn": "Y",
+     "prearngPrceDcsnMthdNm": "복수예가",
+     "ntceNticeDt": "2026-10-01 07:32:03",
+     "bidPrceCalclAOpenDt": "2026-10-01 07:33:09",
+     "smkpAmt": "",
+     "smkpAmtYn": "N"
+    }
+   ],
+   "numOfRows": 10,
+   "pageNo": 1,
+   "totalCount": 1
+  }
+ }
+}

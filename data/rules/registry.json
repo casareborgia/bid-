@@ -1,0 +1,117 @@
+{
+  "version": "2026-10-31",
+  "description": "계약 법령·행정규칙·공공기관 규정 변경 감시 레지스트리 (Phase 8-B). 식별자·기준값은 2026-10-31 korean-law CLI 4.15.9 실조회로 확인. last_seen 갱신은 monitor_rules.py --accept 로만 수행한다.",
+  "items": [
+    {
+      "key": "state_contract_decree",
+      "kind": "law",
+      "name": "국가를 당사자로 하는 계약에 관한 법률 시행령",
+      "law_id": "002652",
+      "last_seen": {
+        "serial": "285893",
+        "ef_date": "2026-06-03"
+      },
+      "model_keywords": [
+        "예정가격",
+        "복수예비가격",
+        "기초금액",
+        "수의계약",
+        "적격심사"
+      ],
+      "related_to": [
+        "② 예비가격·추첨 수",
+        "④ 기초금액 산식",
+        "⑤ 수의계약 기준"
+      ]
+    },
+    {
+      "key": "local_contract_decree",
+      "kind": "law",
+      "name": "지방자치단체를 당사자로 하는 계약에 관한 법률 시행령",
+      "law_id": "010098",
+      "last_seen": {
+        "serial": "286149",
+        "ef_date": "2026-06-03"
+      },
+      "model_keywords": [
+        "예정가격",
+        "복수예비가격",
+        "기초금액",
+        "적격심사"
+      ],
+      "related_to": [
+        "① 예가 범위",
+        "② 예비가격·추첨 수"
+      ]
+    },
+    {
+      "key": "yega_criteria",
+      "kind": "admrul",
+      "name": "(계약예규) 예정가격작성기준",
+      "rule_id": "27944",
+      "last_seen": {
+        "serial": "2100000284228",
+        "ef_date": "2026-08-25"
+      },
+      "model_keywords": [
+        "복수예비가격",
+        "기초금액",
+        "15개",
+        "추첨",
+        "사정"
+      ],
+      "related_to": [
+        "① 예가 범위",
+        "② 예비가격·추첨 수",
+        "④ 기초금액 산식"
+      ],
+      "query": "예정가격작성기준"
+    },
+    {
+      "key": "local_exec_criteria",
+      "kind": "admrul",
+      "name": "지방자치단체 입찰 및 계약 집행기준",
+      "rule_id": "29508",
+      "last_seen": {
+        "serial": "2100000281382",
+        "ef_date": "2026-07-01"
+      },
+      "model_keywords": [
+        "복수예비가격",
+        "예정가격",
+        "기초금액",
+        "3%",
+        "15개"
+      ],
+      "related_to": [
+        "① 예가 범위",
+        "② 예비가격·추첨 수"
+      ],
+      "query": "지방자치단체 입찰 및 계약 집행기준"
+    },
+    {
+      "key": "koen_contract_rule",
+      "kind": "pi",
+      "name": "한국남동발전 계약규정",
+      "rule_id": "2200000160749",
+      "last_seen": {
+        "serial": "2200000160749",
+        "ef_date": "2026-09-09"
+      },
+      "model_keywords": [
+        "제34조",
+        "복수예비가격",
+        "기초금액",
+        "±2%",
+        "15개"
+      ],
+      "related_to": [
+        "① 예가 범위",
+        "② 예비가격·추첨 수",
+        "④ 기초금액 산식"
+      ],
+      "query": "한국남동발전 계약규정",
+      "title": "(한국남동발전주식회사) 계약규정"
+    }
+  ]
+}

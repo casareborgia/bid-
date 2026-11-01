@@ -1,0 +1,256 @@
+{
+  "version": "2026-10-31",
+  "description": "발주기관명(수요기관) 기반 복수예비가격 작성 범위(±N%) 규칙표. status='verified'이고 실데이터(53.9만 건) 교차검증 일치율이 95% 이상인 행만 자동 판정에 사용한다. 근거 조문·일련번호는 2026-10-31 korean-law CLI 로 확인(지자체 집행기준은 첨부파일 본문이라 조문 위치 미확인).",
+  "rules": [
+    {
+      "id": "koen",
+      "name": "한국남동발전",
+      "status": "verified",
+      "scope": {
+        "agency_type": "public_enterprise_power",
+        "include_keywords": [
+          "한국남동발전"
+        ],
+        "exclude_keywords": []
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 2,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "한국남동발전 계약규정",
+        "article": "제34조 제3항",
+        "serial": "2200000160749",
+        "ef_date": "2026-09-09",
+        "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2200000160749"
+      }
+    },
+    {
+      "id": "kepco_soc",
+      "name": "한국전력공사 및 주요 SOC 공기업(LH·도공·수공·철도)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "public_enterprise_soc",
+        "include_keywords": [
+          "한국전력공사",
+          "한국토지주택공사",
+          "한국도로공사",
+          "한국수자원공사",
+          "한국철도공사",
+          "국가철도공단"
+        ],
+        "exclude_keywords": []
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 2,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "공기업·준정부기관 계약사무규칙 및 (계약예규) 예정가격작성기준",
+        "article": "제44조의3 제2항 (기초금액 ±2% 범위 내 서로 다른 15개, 제3항 4개 추첨 산술평균)",
+        "serial": "2100000284228",
+        "ef_date": "2026-08-25",
+        "url": "https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000284228"
+      }
+    },
+    {
+      "id": "edu_k12",
+      "name": "시·도교육청, 교육지원청 및 초·중·고 각급학교(대학 제외)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "education_local",
+        "include_keywords": [
+          "교육청",
+          "교육지원청",
+          "초등학교",
+          "중학교",
+          "고등학교",
+          "유치원",
+          "특수학교"
+        ],
+        "exclude_keywords": [
+          "대학교",
+          "대학",
+          "대학원",
+          "중소벤처기업부",
+          "해양수산부",
+          "국립"
+        ]
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 3,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "지방자치단체 입찰 및 계약 집행기준 (행정안전부 예규)",
+        "article": "복수예비가격 ±3% 범위 내 15개 (예규 본문이 첨부파일로만 제공되어 조문 위치는 원문 미확인)",
+        "serial": "2100000281382",
+        "ef_date": "2026-07-01",
+        "url": "https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000281382",
+        "note": "지자체 ±3% 사용자 확인(2026-11-01), 실데이터 일치율 97.6%/99.9%"
+      }
+    },
+    {
+      "id": "local_gov",
+      "name": "지방자치단체(광역·기초·직속기관·사업소)",
+      "status": "verified",
+      "scope": {
+        "agency_type": "local_government",
+        "include_keywords": [
+          "특별시",
+          "광역시",
+          "특별자치시",
+          "특별자치도"
+        ],
+        "include_regex": "^(서울|부산|대구|인천|광주|대전|울산|세종|경기도|강원|충청|전라|전북|경상|제주).*|.*(시|군|구|읍|면|동|시청|군청|구청|도청|도의회|시의회|군의회|구의회|보건소|농업기술센터|상하수도사업소|맑은물사업소|환경사업소|건설사업소|도로관리사업소|시설관리사업소)$",
+        "exclude_keywords": [
+          "공사",
+          "공단",
+          "재단",
+          "연구원",
+          "진흥원",
+          "의료원",
+          "병원",
+          "대학교",
+          "대학",
+          "교육청",
+          "교육지원청",
+          "학교",
+          "경찰",
+          "세무",
+          "우체국",
+          "국토관리",
+          "지방해양",
+          "지방환경",
+          "지방고용",
+          "지방조달",
+          "지방중소",
+          "지방보훈",
+          "지방통계",
+          "지방병무",
+          "지방항공",
+          "지방우정",
+          "지방식약",
+          "지방기상",
+          "지방교정",
+          "지방산림",
+          "지방공정",
+          "검찰",
+          "법원",
+          "세관",
+          "출입국",
+          "국가",
+          "국립",
+          "한국",
+          "부 ",
+          "청 ",
+          "처 ",
+          "위원회",
+          "과학기술원",
+          "주식회사",
+          "(주)",
+          "개발센터"
+        ]
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 3,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "지방자치단체 입찰 및 계약 집행기준 (행정안전부 예규)",
+        "article": "복수예비가격 ±3% 범위 내 15개 (예규 본문이 첨부파일로만 제공되어 조문 위치는 원문 미확인)",
+        "serial": "2100000281382",
+        "ef_date": "2026-07-01",
+        "url": "https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000281382",
+        "note": "지자체 ±3% 사용자 확인(2026-11-01), 실데이터 일치율 97.6%/99.9%"
+      }
+    },
+    {
+      "id": "national_univ",
+      "name": "국·공립 대학교 (대학 회계·산학협력단 혼재)",
+      "status": "unverified",
+      "scope": {
+        "agency_type": "university",
+        "include_keywords": [
+          "대학교",
+          "대학"
+        ],
+        "exclude_keywords": [
+          "대학병원"
+        ]
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 2,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "국가를 당사자로 하는 계약에 관한 법률 시행령 및 (계약예규) 예정가격작성기준 (실데이터 ±2% 94.4%로 95% 기준 소폭 미달)",
+        "article": "제44조의3 제2항 (기초금액 ±2% 범위 내 서로 다른 15개, 제3항 4개 추첨 산술평균)",
+        "serial": "2100000284228",
+        "ef_date": "2026-08-25",
+        "url": "https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000284228"
+      }
+    },
+    {
+      "id": "central_gov",
+      "name": "중앙행정기관(부·처·청) 및 조달청 위탁 발주",
+      "status": "unverified",
+      "scope": {
+        "agency_type": "central_government",
+        "include_keywords": [
+          "조달청",
+          "국방부",
+          "국토교통부",
+          "해양수산부",
+          "환경부",
+          "산림청",
+          "경찰청",
+          "국세청",
+          "관세청"
+        ],
+        "exclude_keywords": []
+      },
+      "work_type": [
+        1,
+        2
+      ],
+      "valid_from": "2019-01-01",
+      "valid_to": null,
+      "range_pct": 2,
+      "n_prices": 15,
+      "n_draw": 4,
+      "basis": {
+        "rule": "(계약예규) 예정가격작성기준 (실데이터 23,951건 중 ±2% 99.86%이나 키워드가 일부 부처만 포함해 자동 판정에서 제외, 공고문 직접 확인)",
+        "article": "제44조의3 제2항 (기초금액 ±2% 범위 내 서로 다른 15개, 제3항 4개 추첨 산술평균)",
+        "serial": "2100000284228",
+        "ef_date": "2026-08-25",
+        "url": "https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000284228"
+      }
+    }
+  ]
+}
